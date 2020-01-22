@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-app.get("/api/timestamp/:date", (req, res) => {
+app.get("/api/timestamp/:date_string", (req, res) => {
 
   const { date } = req.params;
 

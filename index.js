@@ -4,7 +4,7 @@ var cors = require('cors');
 app.use(cors()); 
 
 //Если строка даты пуста, то выводится текущее время
-app.get("/api/timestamp/", (req, res) => {
+app.get("/", (req, res) => {
   const timeInMs = Date.now();
   const timeUTC = new Date().toUTCString();
   res.json({
@@ -12,7 +12,7 @@ app.get("/api/timestamp/", (req, res) => {
   });
 });
 
-app.get("/api/timestamp/:date", (req, res) => {
+app.get("/:date", (req, res) => {
 
   let date = req.params.date;
 

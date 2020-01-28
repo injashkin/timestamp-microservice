@@ -3,19 +3,17 @@ const app = express();
 var cors = require("cors");
 app.use(cors());
 
-app.get("/:date", (req, res) => {
-  const { date } = req.params;
-  console.log(date)
+app.get("/api/timestamp/:date_string", (req, res) => {
+  const { date_string } = req.params;  
 
-  if (Number(date)) {
-    const timeInMs = Number(date);
-    const time = new Date(timeInMs).toUTCString();
+  if (Number(date_string)) {    
+    const time = new Date(date_string).toUTCString();
     res.json({
-      unix: timeInMs,
+      unix: date_string.getTime(),
       utc: time
     });
   }
-  const time = new Date(date).toUTCString();
+  const time = new Date(date_string).toUTCString();
   res.json({
     unix: Date.parse(time),
     utc: time
@@ -23,7 +21,7 @@ app.get("/:date", (req, res) => {
 });
 
 //Если строка даты пуста, то выводится текущее время
-app.get("/", (req, res) => {
+app.get("/api/timestamp/", (req, res) => {
   const timeInMs = Date.now();
   const timeUTC = new Date().toUTCString();
   res.json({

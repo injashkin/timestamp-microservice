@@ -1,23 +1,26 @@
 const express = require("express");
 const app = express();
 var cors = require("cors");
-app.use(cors());
+//app.use(cors());
 
 app.get("/api/timestamp/:date_string", (req, res) => {
-  const { date_string } = req.params;  
-
-  if (Number(date_string)) {    
-    const time = new Date(date_string).toUTCString();
+  const { date_string } = req.params;
+  const date_number = Number(date_string);
+  
+  if (date_number) {    
+    const time = new Date(date_number);
     res.json({
-      unix: date_string.getTime(),
-      utc: time
+      unix: time.getTime(),
+      utc: time.toUTCString()
     });
   }
-  const time = new Date(date_string).toUTCString();
+
+  const time = new Date(date_string);
   res.json({
-    unix: Date.parse(time),
-    utc: time
+    unix: time.getTime(),
+    utc: time.toUTCString()
   });
+
 });
 
 //Если строка даты пуста, то выводится текущее время

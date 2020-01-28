@@ -15,7 +15,11 @@ app.get("/api/timestamp/:date_string", (req, res) => {
     });
   }
 
-  const time = new Date(date_string); 
+  const time = new Date(date_string);
+
+  if (time.toString() === 'Invalid Date') {
+    res.json({ error: time.toString() })
+  }
 
   res.json({
     unix: time.getTime(),
